@@ -268,5 +268,94 @@ public class agregarActividad extends Conexion {
         return false;
 
     }
+    
+    public static DefaultTableModel objetivosDia(String dia) {
+
+        DefaultTableModel modelo = new DefaultTableModel();
+        String where = "";
+
+        try {
+            //Conexin con la base de dato
+            Connection conexion = Conexion.getConexion();
+            ResultSet rs = null;
+
+            if (!"".equals(dia)) {
+                where = "WHERE dia = '" + dia + "'";
+            }
+
+            String sql = "SELECT nombre, descripcion, dia, repeticiones FROM actividaobjetivo " + where;
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            ResultSetMetaData rsMd = rs.getMetaData();
+            int cantidadColumnas = rsMd.getColumnCount();
+            
+            modelo.addColumn("Nombre");
+            modelo.addColumn("Descripcion");
+            modelo.addColumn("Dia");
+            modelo.addColumn("Repeticiones en la semana");
+
+            while (rs.next()) {
+
+                Object[] filas = new Object[cantidadColumnas];
+
+                for (int i = 0; i < cantidadColumnas; i++) {
+                    filas[i] = rs.getObject(i + 1);
+                }
+                modelo.addRow(filas);
+            }
+            conexion.close();
+
+        } catch (SQLException e) {
+            System.out.println("error"+e.getMessage());
+
+        }
+        return modelo;
+
+    }
+    
+    public static DefaultTableModel tareasDia(String fecha) {
+
+        String where = "";
+        DefaultTableModel modelo = new DefaultTableModel();
+
+        if (!"".equals(fecha)) {
+            where = "WHERE fecha = '" + fecha + "'";
+        }
+
+        try {
+
+            //Conexin con la base de dato
+            Connection conexion = Conexion.getConexion();
+            ResultSet rs = null;
+
+            String sql = "SELECT nombre, descripcion, fecha, terminada FROM actividatarea " + where;
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            ResultSetMetaData rsMd = rs.getMetaData();
+            int cantidadColumnas = rsMd.getColumnCount();
+            
+            modelo.addColumn("Nombre");
+            modelo.addColumn("Descripcion");
+            modelo.addColumn("Fecha");
+            modelo.addColumn("Terminada");
+
+            while (rs.next()) {
+
+                Object[] filas = new Object[cantidadColumnas];
+
+                for (int i = 0; i < cantidadColumnas; i++) {
+                    filas[i] = rs.getObject(i + 1);
+                }
+                modelo.addRow(filas);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error en mostrar tareas ");
+        }
+        return modelo;
+    }
+    
 
 }

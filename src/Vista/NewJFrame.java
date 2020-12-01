@@ -101,7 +101,7 @@ public class NewJFrame extends javax.swing.JFrame {
         SimpleDateFormat dayFormato = new SimpleDateFormat("EEEE");
         String dia = dayFormato.format(this.jCalendar.getDate());
         
-        
+        System.out.println(fecha);
         String lunes = "lunes";
         if(dia.equals(lunes)){
             System.out.println("funciona");
