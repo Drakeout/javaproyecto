@@ -5,9 +5,11 @@
  */
 package Vista;
 
-import Controlador.agregarActividad;
+import Controlador.RegistroActividad;
 import Modelo.actividadObjetivo;
 import Modelo.actividadTarea;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.text.SimpleDateFormat;
 import javax.swing.table.DefaultTableModel;
 
@@ -15,17 +17,19 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author felip
  */
-public class listaObjetivos extends javax.swing.JFrame {
+public class VentanaListarObjetivos extends javax.swing.JFrame {
 
     /**
      * Creates new form listaObjetivos
      */
-    public listaObjetivos() {
+    public VentanaListarObjetivos() {
         initComponents();
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
         String inicial = "";
         
         DefaultTableModel modelo;
-        modelo = agregarActividad.listarObjetivos(inicial);
+        modelo = RegistroActividad.listarObjetivos(inicial);
 
         tbObjetivos.setModel(modelo);
       
@@ -60,7 +64,7 @@ public class listaObjetivos extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnBuscar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         tbObjetivos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -274,7 +278,7 @@ public class listaObjetivos extends javax.swing.JFrame {
         String campo = this.txtBuscar.getText().trim();
         
         DefaultTableModel modelo;
-        modelo = agregarActividad.listarObjetivos(campo);
+        modelo = RegistroActividad.listarObjetivos(campo);
         
         this.tbObjetivos.setModel(modelo);
         
@@ -304,10 +308,10 @@ public class listaObjetivos extends javax.swing.JFrame {
             
             //TO-DO crear metodo para ACTUALIZAR Datos con el id
 
-            if (new agregarActividad().actualizarObjetivo(actividadObjetivo, Id) == true) {
+            if (new RegistroActividad().actualizarObjetivo(actividadObjetivo, Id) == true) {
                 javax.swing.JOptionPane.showMessageDialog(this, "GRABO!!!");
                 DefaultTableModel modelo;
-                modelo = agregarActividad.listarObjetivos("");
+                modelo = RegistroActividad.listarObjetivos("");
 
                 this.tbObjetivos.setModel(modelo);
             } else {
@@ -337,7 +341,7 @@ public class listaObjetivos extends javax.swing.JFrame {
         txtId.setText(tbId);
         txtDescripcion.setText(tbDesc);
         this.chsDia.setValue(tbDia);
-        //this.spRepeticiones.setValue(tbRepe);
+        //this.spRepeticiones.set(tbRepe);
     }//GEN-LAST:event_tbObjetivosMouseClicked
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -347,17 +351,17 @@ public class listaObjetivos extends javax.swing.JFrame {
         
             String tbId = tbModelo.getValueAt(tbObjetivos.getSelectedRow(), 0).toString();
 
-            if(new agregarActividad().eliminarObjetivo(tbId)==true){
-                javax.swing.JOptionPane.showMessageDialog(this, "Elimino!!!");
+            if(new RegistroActividad().eliminarObjetivo(tbId)==true){
+                javax.swing.JOptionPane.showMessageDialog(this, "Objetivo Eliminado");
                 DefaultTableModel modelo;
-                modelo = agregarActividad.listarObjetivos("");
+                modelo = RegistroActividad.listarObjetivos("");
 
                 this.tbObjetivos.setModel(modelo);
             }else{
-                javax.swing.JOptionPane.showMessageDialog(this, "No Elimino!!!");
+                javax.swing.JOptionPane.showMessageDialog(this, "No se pudo eliminar");
             }
         }catch (Exception e){
-            javax.swing.JOptionPane.showMessageDialog(this, "Elimino!!!"+e.getMessage());
+            javax.swing.JOptionPane.showMessageDialog(this, "Error en eliminar "+e.getMessage());
 
         }
 
@@ -380,20 +384,21 @@ public class listaObjetivos extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(listaObjetivos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaListarObjetivos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(listaObjetivos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaListarObjetivos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(listaObjetivos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaListarObjetivos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(listaObjetivos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaListarObjetivos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new listaObjetivos().setVisible(true);
+                new VentanaListarObjetivos().setVisible(true);
             }
         });
     }

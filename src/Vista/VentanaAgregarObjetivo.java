@@ -7,19 +7,23 @@ package Vista;
 
 import Controlador.*;
 import Modelo.*;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
 
 /**
  *
  * @author felip
  */
-public class AgregarObjetivo extends javax.swing.JFrame {
+public class VentanaAgregarObjetivo extends javax.swing.JFrame {
 
     /**
      * Creates new form AgregarObjetivo
      */
-    public AgregarObjetivo() {
+    public VentanaAgregarObjetivo() {
         initComponents();
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
     }
 
     /**
@@ -43,7 +47,7 @@ public class AgregarObjetivo extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Agregar Objetivo"));
 
@@ -159,16 +163,16 @@ public class AgregarObjetivo extends javax.swing.JFrame {
             actividadObjetivo.setRepeticiones((Integer) this.spRepet.getValue());
             actividadObjetivo.setDescripcion(this.fldDesc.getText());
             
-           if (new agregarActividad().agregarObjetivo(actividadObjetivo) == true) {
-               javax.swing.JOptionPane.showMessageDialog(this, "GRABO!!!");
+           if (new RegistroActividad().agregarObjetivo(actividadObjetivo) == true) {
+               javax.swing.JOptionPane.showMessageDialog(this, "Objetivo Agregado");
            } else {
-               javax.swing.JOptionPane.showMessageDialog(this, "No GRABO!!!");
+               javax.swing.JOptionPane.showMessageDialog(this, "No se pudo agregar el objetivo");
            }
             
             
             
         }catch(Exception e){
-            javax.swing.JOptionPane.showMessageDialog(this, "Error " + e.getMessage());
+            javax.swing.JOptionPane.showMessageDialog(this, "Error grabar objetivo en " + e.getMessage());
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
@@ -189,20 +193,21 @@ public class AgregarObjetivo extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AgregarObjetivo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaAgregarObjetivo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AgregarObjetivo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaAgregarObjetivo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AgregarObjetivo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaAgregarObjetivo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AgregarObjetivo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaAgregarObjetivo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AgregarObjetivo().setVisible(true);
+                new VentanaAgregarObjetivo().setVisible(true);
             }
         });
     }

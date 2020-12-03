@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author felip
  */
-public class agregarActividad extends Conexion {
+public class RegistroActividad extends Conexion {
 
     public boolean agregarTarea(actividadTarea tarea) {
 
@@ -214,7 +214,7 @@ public class agregarActividad extends Conexion {
             }
 
         } catch (SQLException e) {
-            System.out.println("Error en mostrar tareas ");
+            System.out.println("Error en mostrar tareas "+e.getMessage());
         }
         return modelo;
     }
@@ -352,10 +352,28 @@ public class agregarActividad extends Conexion {
             }
 
         } catch (SQLException e) {
-            System.out.println("Error en mostrar tareas ");
+            System.out.println("Error en mostrar tareas "+ e.getMessage());
         }
         return modelo;
     }
     
+    public int actualTareas(String fecha){
+        
+        int numeroTareas=0;
+        try {
+            Connection conexion = Conexion.getConexion();
+            ResultSet rs = null;
+            
+            String query = "SELECT COUNT(*) FROM actividatarea where =" + fecha;
+            PreparedStatement fc = conexion.prepareStatement(query);
+            rs = fc.executeQuery();
+            numeroTareas = rs.getInt("count");
+        
+        }catch(Exception e){
+            System.out.println("Error en mostrar taraea acual "+e.getMessage());
+        }
+                
+        return numeroTareas;
+    }
 
 }

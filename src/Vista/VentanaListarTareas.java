@@ -5,8 +5,10 @@
  */
 package Vista;
 
-import Controlador.agregarActividad;
+import Controlador.RegistroActividad;
 import Modelo.actividadTarea;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,16 +18,18 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author felip
  */
-public class listaTareas extends javax.swing.JFrame {
+public class VentanaListarTareas extends javax.swing.JFrame {
 
     /**
      * Creates new form listaTareas
      */
-    public listaTareas() {
+    public VentanaListarTareas() {
         initComponents();
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
         
         DefaultTableModel modelo;
-        modelo = agregarActividad.listarTareas("");
+        modelo = RegistroActividad.listarTareas("");
         
         this.tbTareas.setModel(modelo);
     }
@@ -61,7 +65,7 @@ public class listaTareas extends javax.swing.JFrame {
         rbSi = new javax.swing.JRadioButton();
         rdNo = new javax.swing.JRadioButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         tbTareas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -274,7 +278,7 @@ public class listaTareas extends javax.swing.JFrame {
         
         
         DefaultTableModel modelo;
-        modelo = agregarActividad.listarTareas(campo);
+        modelo = RegistroActividad.listarTareas(campo);
         
         this.tbTareas.setModel(modelo);
         
@@ -303,15 +307,15 @@ public class listaTareas extends javax.swing.JFrame {
             tarea.setDescripcion(this.txtDescripcion.getText());
             tarea.setTerminada(terminada);
             
-            if(new agregarActividad().actualizarTarea(tarea,Id)){
-                javax.swing.JOptionPane.showMessageDialog(this, "Actualizo!!!");
+            if(new RegistroActividad().actualizarTarea(tarea,Id)){
+                javax.swing.JOptionPane.showMessageDialog(this, "Actualizado");
                 DefaultTableModel modelo;
-                modelo = agregarActividad.listarTareas("");
+                modelo = RegistroActividad.listarTareas("");
                 
                 this.tbTareas.setModel(modelo);
                 
             } else {
-                javax.swing.JOptionPane.showMessageDialog(this, "No actualizo!!!");
+                javax.swing.JOptionPane.showMessageDialog(this, "No se pudo actualizar");
             }
         
         
@@ -335,17 +339,17 @@ public class listaTareas extends javax.swing.JFrame {
 
             String tbId = tbModelo.getValueAt(tbTareas.getSelectedRow(), 0).toString();
 
-            if (new agregarActividad().eliminarTarea(tbId) == true) {
-                javax.swing.JOptionPane.showMessageDialog(this, "Elimino!!!");
+            if (new RegistroActividad().eliminarTarea(tbId) == true) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Tarea eliminada");
                 DefaultTableModel modelo;
-                modelo = agregarActividad.listarTareas("");
+                modelo = RegistroActividad.listarTareas("");
 
                 this.tbTareas.setModel(modelo);
             } else {
-                javax.swing.JOptionPane.showMessageDialog(this, "No Elimino!!!");
+                javax.swing.JOptionPane.showMessageDialog(this, "No se pudo eliminar tarea");
             }
         } catch (Exception e) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Elimino!!!" + e.getMessage());
+            javax.swing.JOptionPane.showMessageDialog(this, "Error en eliminar tarea " + e.getMessage());
 
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
@@ -402,20 +406,21 @@ public class listaTareas extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(listaTareas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaListarTareas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(listaTareas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaListarTareas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(listaTareas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaListarTareas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(listaTareas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaListarTareas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new listaTareas().setVisible(true);
+                new VentanaListarTareas().setVisible(true);
             }
         });
     }
